@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block title %}
+    Enrollment for Gym Program
+{% endblock title %}
+{% block head %}
+
+
+    <h1>Join</h1>
+
+
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col-md-3"></div>
+
+            <div class="col-md-6">
+
+
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.person }}
+                    <p>Membership Plan: {{ form.instance.membershipplan }}</p>
+                    <input type="hidden" name="membershipplan" value="{{ form.instance.membershipplan.id }}">
+                    <button type="submit">Enroll</button>
+                </form>
+
+                <br/>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-warning" type="submit">Enroll</button>
+                </div>
+                </form>
+            </div>
+
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+
+{% endblock head %}
