@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+
+    <!-- Favicons -->
+    <link href="{% static 'img/favicon.png' %}" rel="icon">
+    <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+    <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('{% static "img/background.jpg" %}');
+            background-size: cover;
+            background-position: center;
+        }
+
+        header {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: #000;
+            font-size: 24px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li:last-child {
+            margin-right: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #000;
+            font-size: 18px;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px; /* Adjust width as needed */
+            height: auto; /* Let the height adjust according to content */
+            margin-top: 100px;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: calc(100% - 12px);
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #ff8d3a;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #ff9e3e;
+        }
+
+        .question-box {
+            background-image: url('{% static "img/background.jpg" %}');
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .question-box a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #ff8d3a;
+            padding: 10px 20px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .question-box p {
+            color: #fff; /* Set the text color to white */
+            margin-bottom: 10px; /* Add some space below the question */
+        }
+
+        .question-box a:hover {
+            background-color: #ff9e3e;
+        }
+    </style>
+</head>
+<body>
+
+
+<header id="header">
+    <div class="container">
+        <h1 class="logo me-auto me-lg-0"><a href="{% url 'home' %}">GYM<span>.</span></a></h1>
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                {% if logged %}
+                    <li><a class="nav-link scrollto active" href="{% url 'home' %}">Home</a></li>
+                    <li><a class="nav-link scrollto" href="#about">About</a></li>
+                    <li><a class="nav-link scrollto" href="#services">Services</a></li>
+                    <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
+                    <li><a class="nav-link scrollto" href="{% url 'profile_details' %}">Profile</a></li>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                {% else %}
+                    <li><a class="nav-link scrollto active" href="{% url 'home' %}">Home</a></li>
+                    <li><a class="nav-link scrollto" href="#about">About</a></li>
+                    <li><a class="nav-link scrollto" href="#services">Services</a></li>
+                    <li><a class="nav-link scrollto" href="{% url 'signin' %}">Login</a></li>
+                    <li><a class="nav-link scrollto" href="{% url 'signup' %}">Register</a></li>
+                {% endif %}
+
+
+
+            
+                <li><a class="nav-link scrollto" href="{% url 'profile_details' %}">Profile</a></li>
+                <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+        <a href="{% url 'signup' %}" class="get-started-btn scrollto">Get Started</a>
+    </div>
+</header><!-- End Header -->
+
+<form action="{% url 'signup' %}" method="post">
+    <h2>Register</h2>
+    {{ form }}
+    {% csrf_token %}
+    <button type="submit">Sign up</button>
+</form>
+
+<div class="question-box">
+    <p>Already have a profile?</p>
+    <a href="{% url 'signin' %}">Sign in here</a>
+</div>
+
+</body>
+</html>

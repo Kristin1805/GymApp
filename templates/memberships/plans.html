@@ -1,41 +1,38 @@
-{% extends 'base.html' %}
-{% block content %}
-
-    
-    {% if not cars %}
-      <!-- Display a paragraph: If there are no cars yet-->
-      <p class="no-articles">No cars yet</p>
-    
-    {% else %}
-      <!-- Display a card with information about each car (if any)-->
-
-      <section id="catalogue">
-        <h1>Total cars: {{ cars_total }}</h1>
-        
-          
-          {% for car in cars %}
-          
-        <!-- first car-->
-        <div class="car-card">
-          <div class="image-wrap">
-            <!-- car image -->
-            <img
-              src="{{ car.image }}"
-              alt="{{ car.type }}"
-            />
-          </div>
-          <!-- car type -->
-          <h3>{{ car.type }}</h3>
-          <!-- car model -->
-          <h1>{{ car.model }}</h1>
-          <div class="details-buttons">
-            <!-- car details button -->
-            <a href="{%  url 'car_details' pk=car.pk %}" class="details-btn">Details</a>
-              
-          </div>
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <title>Membership plans</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style_membership_plans.css' %}">
+</head>
+<body>
+<div class="card-container">
+    <div class="card">
+        <link href="{% static 'img/workouts/back.webp' %}">
+        <div class="card-content">
+            <h1>Back Focused</h1>
+            <p>This membership plan will help you gain muscles on your back!</p>>
+            <a href="" class="card_button">Join Course</a>
         </div>
-      </section>
-        {% endfor %}
-    {% endif %}
-
-{% endblock %}
+    </div>
+    <div class="card">
+        <link href="{% static 'img/workouts/biceps.webp' %}">
+        <div class="card-content">
+            <h1>Biceps Focused</h1>
+            <p>This membership plan is for everyone who wants top biceps!</p>>
+            <a href="" class="card_button">Join Course</a>
+        </div>
+    </div>
+    <div class="card">
+        <link href="{% static 'img/workouts/chest.webp' %}">
+        <div class="card-content">
+            <h1>Biceps Focused</h1>
+            <p>This membership plan is for everyone who wants top biceps!</p>>
+            <a href="" class="card_button">Join Course</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

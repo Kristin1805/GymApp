@@ -1,10 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from GymApp.profiles.models import Profile
 
 USER_MODEL = get_user_model()
 
-# Create your models here.
-class Trainer(Profile):
+
+class Trainer(models.Model):
     salary = models.DecimalField(max_digits=10, decimal_places=2)
+    user = models.OneToOneField(USER_MODEL, on_delete=models.CASCADE, primary_key=True, related_name='trainer')

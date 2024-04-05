@@ -9,3 +9,6 @@ class EnrollForm(forms.ModelForm):
         widgets = {
             'membershipplan': forms.HiddenInput(),  # Hide the membership plan field
         }
+
+
+

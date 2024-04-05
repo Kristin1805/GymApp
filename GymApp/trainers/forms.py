@@ -1,45 +1,31 @@
 from django import forms
-from GymApp.membership.models import MembershipPlan
+from django.contrib.auth.forms import UserCreationForm
+
+from GymApp.profiles.models import USER_MODEL
+from GymApp.trainers.models import Trainer
+
 
 
 # Create your views here.
-class BaseMembershipForm(forms.ModelForm):
+class BaseTrainerForm(forms.ModelForm):
     class Meta:
-        model = MembershipPlan
-        fields = ['plan', 'img', 'price', 'workouts']
-        widgets = {
-            "image": forms.URLInput(
-                attrs={"placeholder": "https://..."}),
-        }
+        model = Trainer
+        exclude = ("user",)
 
-        labels = {
-            "plan": "Plan",
-            "img": "Image URL",
-            "price": "Price",
-            "workouts": "workouts",
-        }
+class CreateTrainer(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = USER_MODEL
+        fields = ("username", "email")
 
+class TrainerLoginForm(forms.ModelForm):
+    class Meta:
+        model=Trainer
+        fields=('username','password')
 
-class CreateMembershipForm(BaseMembershipForm):
+class TraineViewForm(forms.ModelForm):
+    class Meta:
+        model= Trainer
+        fields=('full_name','mobile','address','detail','img')
+
+class TrainerEditForm(BaseTrainerForm):
     pass
-
-
-class EditMembershipForm(BaseMembershipForm):
-    pass
-
-
-class DeleteMembershipForm(BaseMembershipForm):
-    # Hide ALL Form
-    def __init__(self, *args, **kwargs):
-        super(DeleteCarForm, self).__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs['readonly'] = True
-
-
-    def save(self, commit=True):
-        if commit:
-            Car.objects.all().delete()
-            self.instance.delete()
-
-        return self.instance
-

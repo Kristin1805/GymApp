@@ -7,8 +7,10 @@ from GymApp.profiles.models import USER_MODEL, Profile
 
 class CreateUser(UserCreationForm):
     class Meta(UserCreationForm.Meta):
-        model = User
-        fields = ("username", "first_name", "last_name", "email")
+        model = USER_MODEL
+        fields = ("username", "email")
+
+
 
 class CustomUserEditForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):

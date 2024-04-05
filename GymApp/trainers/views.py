@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
@@ -17,13 +17,13 @@ def singup(request):
             return redirect('home')  # Redirect to the home page after successful signup
     else:
         form = CreateUser()
-    return render(request, 'singup.html', {'form': form})
+    return render(request, 'signup.html', {'form': form})
 
 
 
 
 class TrainerLoginView(LoginView):
-    template_name = "singup.html"
+    template_name = "signup.html"
     success_url = reverse_lazy("home")
 
 class TrainerDetailsView(DetailView, LoginRequiredMixin):
@@ -41,3 +41,27 @@ class TrainerDeleteView(DeleteView, LoginRequiredMixin):
 
 
 
+@login_required
+@permission_required('trainers.can_add_workout', raise_exception=True)
+def add_workout(request):
+    # Your code to add workout program
+    pass
+
+@login_required
+@permission_required('trainers.can_delete_workout', raise_exception=True)
+def delete_workout(request, workout_id):
+    # Your code to delete workout program
+    pass
+
+@login_required
+@permission_required('trainers.can_change_workout', raise_exception=True)
+def edit_workout(request, workout_id):
+    # Your code to edit workout program
+    pass
+
+
+#
+# def trainer_payments(request):
+#     trainer=Trainer.objects.get(pk=request.session['trainerid'])
+#     trainer_pays=TrainerSalary.objects.filter(trainer=trainer).order_by('-id')
+#     return render(request, 'trainer/trainer_payments.html',{'trainer_pays':trainer_pays})

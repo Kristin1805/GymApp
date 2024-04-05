@@ -1,0 +1,94 @@
+/* Styles for Members View */
+
+/* Container Styles */
+.container {
+    margin-top: 3%;
+    background-color: orange;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Search Form Styles */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+/* Button Styles */
+.btn-danger {
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.btn-dark {
+    margin-top: 10px;
+}
+
+/* Table Styles */
+.table {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Table Header Styles */
+.table thead th {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+}
+
+/* Table Body Styles */
+.table tbody td {
+    text-align: center;
+}
+
+/* Pagination Styles */
+.pagination {
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.page-link {
+    color: #007bff;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    margin: 0 2px;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+/* Tab Styles */
+.nav-tabs .nav-item {
+    margin-bottom: -1px;
+}
+
+.nav-link {
+    color: #007bff;
+}
+
+.nav-link.active {
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-bottom-color: transparent;
+}
+
+/* Tab Content Styles */
+.tab-content {
+    margin-top: 20px;
+}

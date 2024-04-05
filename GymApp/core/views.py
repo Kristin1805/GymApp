@@ -5,9 +5,10 @@ from GymApp.profiles.models import Profile
 
 # Create your views here.
 def home(request):
-    return render(request, 'homepage.html')
+    if request.user.is_authenticated:
+        logged = True
+    else:
+        logged = False
 
+    return render(request, 'homepage.html', context={'logged': logged})
 
-
-def login(request):
-    return render(request, 'login.html')
