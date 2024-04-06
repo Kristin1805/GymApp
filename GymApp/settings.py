@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'GymApp.core',
     'GymApp.profiles.apps.ProfilesConfig',
-    'GymApp.people',
     'GymApp.enrolls',
     'GymApp.workouts',
     'GymApp.membership',
@@ -130,6 +129,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
+# Define the media directory
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 LOGIN_REDIRECT_URL = reverse_lazy("home")
 LOGIN_URL = reverse_lazy("signin")
 LOGOUT_REDIRECT_URL = reverse_lazy("home")

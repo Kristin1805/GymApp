@@ -1,0 +1,156 @@
+{% load static %}
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+     <title>{% block title %} zoeziAI {% endblock %}</title>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     {% comment %} <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> {% endcomment %}
+     {% bootstrap_css %}
+     
+     <link rel="stylesheet" href="{% static 'workouts/css/font-awesome.min.css' %}">
+     <link rel="stylesheet" href="{% static 'workouts/css/aos.css' %}">
+
+     <!-- MAIN CSS -->
+     <link rel="stylesheet" href="{% static 'workouts/css/styles.css' %}">
+
+     {% block stylesheet %} {% endblock %}
+</head>
+<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+
+{% comment %} {% include 'workouts/includes/messages.html' %} {% endcomment %}
+
+{% block body %}
+    <!-- MENU BAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+
+            <a class="navbar-brand" href="{% url 'home' %}">zoeziAI</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-lg-auto">
+                    <li class="nav-item">
+                        <a href="{% url 'home' %}" class="nav-link smoothScroll">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{% url 'about' %}" class="nav-link smoothScroll">About Us</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{% url 'contact' %}" class="nav-link smoothScroll">Contact</a>
+                    </li>
+                    
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'categories' %}" class="nav-link smoothScroll">Categories</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          {{ user.username }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+                            {% if user.is_staff %}
+                                <a class="dropdown-item" href="{% url 'trainer-profile' %}">Staff Tools</a>
+                            {% else %}
+                                <a class="dropdown-item" href="{% url 'customer-profile' %}">My account</a>
+                            {% endif %}
+
+                          {% comment %} <a class="dropdown-item" href="#">Change password</a> {% endcomment %}
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+                        </div>
+                      </li>
+                </ul>
+                {% else %}
+                    {% comment %} <form class="form-inline ml-auto"> {% endcomment %}
+                        <li class="nav-item">
+                            <a href="{% url 'login' %}" class="custom-btn">Log in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'register' %}" class="custom-btn bordered ml-2">Sign up</a>
+                        </li>
+                    {% comment %} </form> {% endcomment %}
+                {% endif %}
+            </div>
+
+        </div>
+    </nav>
+    <div class="nav-container">
+        <div class="nav-side-menu">
+            <!-- <div class="brand">Press Curing Control</div> -->
+            <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+    
+            <div class="menu-list">
+    
+                <ul id="menu-content" class="menu-content collapse out">
+                    {% if user.is_staff %}
+                        <li class="">
+                            <a href="{% url 'trainer-profile' %}">
+                                <i class="fa fa-dashboard fa-lg"></i> <small>Dashboard</small>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="{% url 'workouts' %}">
+                                <i class="fa fa-list fa-lg"></i> <small>Workout Manager</small>
+                            </a>
+                        </li>
+                        <ul class="sub-menu" >
+                            <li>
+                                <a href="{% url 'workouts' %}">
+                                    <i class="fa fa-angle-right fa-lg"></i><small>Workouts</small>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'workout-programs' %}">
+                                    <i class="fa fa-angle-right fa-lg"></i><small>Workout Programs</small>
+                                </a>
+                            </li>
+                        </ul>
+                        <li class="">
+                            <a href="{% url 'reports' %}">
+                                <i class="fa fa-file-text fa-lg"></i> <small>Reports</small>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="">
+                            <a href="{% url 'customer-profile' %}">
+                                <i class="fa fa-dashboard fa-lg"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="{% url 'workouts' %}">
+                                <i class="fa fa-list fa-lg"></i> Workouts
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+   {% block content %}
+
+   {% endblock content%}
+
+    <!-- SCRIPTS -->
+    {% bootstrap_javascript jquery='full' %}
+    {% comment %} <script src="{% static 'workouts/js/jquery.min.js' %}"></script> {% endcomment %}
+    {% comment %} <script src="{% static 'workouts/js/bootstrap.min.js' %}"></script> {% endcomment %}
+    <script src="{% static 'workouts/js/popper.min.js' %}"></script>
+    <script src="{% static 'workouts/js/aos.js' %}"></script>
+    <script src="{% static 'workouts/js/smoothscroll.js' %}"></script>
+    <script src="{% static 'workouts/js/custom.js' %}"></script>
+    {% endblock body %}
+</body>
+</html>

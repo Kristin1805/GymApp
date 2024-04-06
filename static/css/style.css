@@ -127,7 +127,7 @@ h6 {
 
 #header.header-scrolled,
 #header.header-inner-pages {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.63);
 }
 
 #header .logo {
@@ -250,7 +250,7 @@ h6 {
   padding: 10px 20px;
   font-size: 14px;
   text-transform: none;
-  color: #151515;
+  color: rgba(21, 21, 21, 0.79);
   font-weight: 400;
 }
 
@@ -322,7 +322,7 @@ h6 {
   right: 0;
   left: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.77);
   transition: 0.3s;
   z-index: 999;
 }
@@ -350,13 +350,13 @@ h6 {
 .navbar-mobile a:focus {
   padding: 10px 20px;
   font-size: 15px;
-  color: #151515;
+  color: rgba(21, 21, 21, 0.85);
 }
 
 .navbar-mobile a:hover,
 .navbar-mobile .active,
 .navbar-mobile li:hover>a {
-  color: #151515;
+  color: rgba(21, 21, 21, 0.78);
   background-color: #ffc451;
 }
 
@@ -441,8 +441,8 @@ h6 {
   color: orange; /* Set the text color to orange */
   text-shadow: -1px -1px 0 #000,
                  1px -1px 0 #000,
-                -1px 1px 0 #000,
-                 1px 1px 0 #000; /* Create the black stroke effect */
+                -1px 1px 0 rgba(0, 0, 0, 0.73),
+                 1px 1px 0 rgba(0, 0, 0, 0.73); /* Create the black stroke effect */
 }
 
 

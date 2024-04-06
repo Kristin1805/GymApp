@@ -18,9 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 
 
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('GymApp.core.urls')),
     path('', include('GymApp.profiles.urls')),
-
+    path('', include('GymApp.workouts.urls')),
+    path('', include('GymApp.trainers.urls')),
+    # path('', include('GymApp.people.urls')),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
