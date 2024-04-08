@@ -1,11 +1,8 @@
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
-
 from GymApp.trainers.models import Trainer
 from django.contrib import admin
 
-
-# Define a custom admin class for Trainer
 @admin.register(Trainer)
 class TrainerAdmin(admin.ModelAdmin):
     list_display = ['user', 'salary']  # Customize displayed fields
@@ -42,3 +39,18 @@ class TrainerAdmin(admin.ModelAdmin):
                 name='Can Delete Workout Program',
                 content_type=content_type,
             )
+
+    def has_change_permission(self, request, obj=None):
+        if obj is not None and obj.user.is_superuser:
+            return True
+        return super().has_change_permission(request, obj)
+
+    def has_delete_permission(self, request, obj=None):
+        if obj is not None and obj.user.is_superuser:
+            return True
+        return super().has_delete_permission(request, obj)
+
+    def has_add_permission(self, request):
+        if request.user.is_superuser:
+            return True
+        return super().has_add_permission(request)

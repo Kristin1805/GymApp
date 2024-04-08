@@ -12,3 +12,5 @@ def home(request):
 
     return render(request, 'homepage.html', context={'logged': logged})
 
+def unauthorized_acess(request):
+    return render(request, 'homepage.html')

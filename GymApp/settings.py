@@ -41,9 +41,9 @@ INSTALLED_APPS = [
     'GymApp.profiles.apps.ProfilesConfig',
     'GymApp.enrolls',
     'GymApp.workouts',
-    'GymApp.membership',
     'GymApp.trainers',
     'GymApp.payments',
+    'GymApp.workouts_in_plan',
 ]
 
 MIDDLEWARE = [

@@ -41,24 +41,6 @@ class TrainerDeleteView(DeleteView, LoginRequiredMixin):
 
 
 
-@login_required
-@permission_required('trainers.can_add_workout', raise_exception=True)
-def add_workout(request):
-    # Your code to add workout program
-    pass
-
-@login_required
-@permission_required('trainers.can_delete_workout', raise_exception=True)
-def delete_workout(request, workout_id):
-    # Your code to delete workout program
-    pass
-
-@login_required
-@permission_required('trainers.can_change_workout', raise_exception=True)
-def edit_workout(request, workout_id):
-    # Your code to edit workout program
-    pass
-
 
 #
 # def trainer_payments(request):

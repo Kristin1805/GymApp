@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <!-- Link to your CSS file -->
+    <link href="{% static 'css/payment.css' %}" rel="stylesheet">
+</head>
+<body>
+
+<div class="mainscreen">
+    <div class="card">
+        <div class="leftside">
+            <img src="https://cdn.dribbble.com/users/23569/screenshots/1916746/gym_peak_logo.png" class="product" alt="Gym Peak Logo">
+        </div>
+          
+        <div class="rightside">
+            <form method="post">
+                {% csrf_token %}
+                <h1>Checkout</h1>
+                <h2>Payment Information</h2>
+                <!-- Display error messages here -->
+                {% if error_message %}
+                    <div class="error-message">{{ error_message }}</div>
+                {% endif %}
+                <!-- End of error message section -->
+                <div class="input-field">
+                    <p>Card's owner</p>
+                    <input type="text" class="inputbox" name="username" value="{{ form.username.value }}" required />
+                    {% if form.errors.username %}
+                        <div class="error-message">{{ form.errors.username }}</div>
+                    {% endif %}
+                </div>
+                <div class="input-field">
+                    <p>Card Number</p>
+                    <input type="text" class="inputbox" name="card_number" id="card_number" value="{{ form.card_number.value }}" required />
+                    {% if form.errors.card_number %}
+                        <div class="error-message">{{ form.errors.card_number }}</div>
+                    {% endif %}
+                </div>
+                <div class="input-field">
+                    <p>Phone Number</p>
+                    <input type="tel" class="inputbox" name="phone_number" id="phone_number" value="{{ form.phone_number.value }}" required />
+                    {% if form.errors.phone_number %}
+                        <div class="error-message">{{ form.errors.phone_number }}</div>
+                    {% endif %}
+                </div>
+                <div class="input-field">
+                    <p>CVV</p>
+                    <input type="password" class="inputbox" name="cvv" id="cvv" required />
+                    {% if form.errors.cvv %}
+                        <div class="error-message">{{ form.errors.cvv }}</div>
+                    {% endif %}
+                </div>
+                <button type="submit" class="button">Pay</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

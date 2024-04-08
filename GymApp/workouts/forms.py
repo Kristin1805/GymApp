@@ -1,5 +1,7 @@
 from django import forms
 from .models import Plan
+from ..workouts_in_plan.models import Workout
+
 
 class BasePlanForm(forms.ModelForm):
     class Meta:
@@ -11,3 +13,4 @@ class AddPlanForm(BasePlanForm):
 
 class EditPlanForm(forms.ModelForm):
     ...
+

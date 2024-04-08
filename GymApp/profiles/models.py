@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from GymApp.workouts.models import Plan
 
 # Create your models here.
 USER_MODEL = get_user_model()
@@ -12,4 +13,6 @@ class Profile(models.Model):
     image = models.FileField(blank=True, null=True)
     address = models.TextField(blank=True, null=True)
     is_trainer = models.BooleanField(default=False)
+    paid_plans = models.ManyToManyField(Plan, blank=True, null=True, related_name='profile_plans')
+    card_num = models.IntegerField(blank=True, null=True)
 

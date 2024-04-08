@@ -28,6 +28,8 @@ urlpatterns = [
     path('', include('GymApp.profiles.urls')),
     path('', include('GymApp.workouts.urls')),
     path('', include('GymApp.trainers.urls')),
+    path('', include('GymApp.enrolls.urls')),
+    path('', include('GymApp.workouts_in_plan.urls')),
     # path('', include('GymApp.people.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
