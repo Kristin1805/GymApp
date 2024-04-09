@@ -1,17 +1,17 @@
 # views.py
 from django.contrib import messages
-from django.contrib.auth import authenticate,  logout
+
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponseRedirect
+
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse_lazy, reverse
-from django.views.generic import DeleteView, DetailView, CreateView, UpdateView
-from django.forms.formsets import formset_factory
-from GymApp.profiles.forms import CreateUser, ProfileEditForm, ProfileDetailsForm, CustomUserEditForm, UserProfileForm
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView, CreateView
+from GymApp.profiles.forms import CreateUser, ProfileEditForm, UserProfileForm, ChangePasswordForm
 from GymApp.profiles.models import USER_MODEL, Profile
-from GymApp.workouts.models import Plan
+
 
 
 def is_not_trainer(function=None, redirect_url='/all_plans/'):
@@ -37,9 +37,6 @@ def profile_details(request):
     except Profile.DoesNotExist:
         profile = None
     return render(request, 'profiles/profiledetails.html', {'user': user, 'profile': profile})
-
-
-
 
 
 
@@ -86,27 +83,38 @@ def update_profile(request):
         profile_form = ProfileEditForm(instance=profile)
     return render(request, 'profiles/profile_edit.html', {'user_form': user_form, 'profile_form': profile_form})
 
-def plan_per_user(request):
-    profile = Profile.objects.get(user=request.user)
-
-    return render(request, 'profiles/profiledetails.html', {'profile': profile})
-
-
-# def plan_detail(request, plan_id):
-#     plan = get_object_or_404(Plan, pk=plan_id)
-#     workouts = plan.workouts.all()
-#     return render(request, 'plan_detail.html', {'plan': plan, 'workouts': workouts})
 
 class UserDeleteView(DeleteView, LoginRequiredMixin):
     model = USER_MODEL
+    template_name = 'profiles/delete.html'
     success_url = reverse_lazy('home')
     custom_context = {"logged": True}
 
     def get_object(self, queryset=None):
         return self.request.user
 
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        profile = Profile.objects.get(user=self.object)
+        profile.delete()
+        self.object.delete()
+        return HttpResponseRedirect(self.get_success_url())
 
-class PlanDetailsView(DetailView):
-    model = Plan
-    template_name = 'workouts/plan_details.html'
-    context_object_name = 'plan'
+@login_required
+def change_password(request, user_id):
+    # Retrieve the profile associated with the provided profile_id
+    profile = get_object_or_404(Profile, user_id=user_id)
+
+
+    if request.user != profile.user:
+        return redirect('error_page')
+
+    if request.method == 'POST':
+        form = ChangePasswordForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('home')  # Redirect to the home page or any other desired page
+    else:
+        form = ChangePasswordForm(user=request.user)
+    return render(request, 'profiles/change_password.html', {'form': form, 'user_id': user_id})

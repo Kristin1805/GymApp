@@ -26,7 +26,7 @@ class Plan(models.Model):
     cross_fit_details = models.TextField(blank=True, null=True)
     personal_training_details = models.CharField(max_length=100,blank=True, null=True)
     personal_training_hours = models.IntegerField(blank=True, null=True)
-    workouts = models.ForeignKey(Workout, on_delete=models.CASCADE, blank=True, null=True)
+
 
     def __str__(self):
         return self.subscription_type

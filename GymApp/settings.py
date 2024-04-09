@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'GymApp.enrolls',
     'GymApp.workouts',
     'GymApp.trainers',
-    'GymApp.payments',
     'GymApp.workouts_in_plan',
 ]
 

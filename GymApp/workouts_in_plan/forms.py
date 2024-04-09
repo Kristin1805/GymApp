@@ -22,5 +22,5 @@ class AddWorkoutForm(forms.ModelForm):
     # plan = forms.ModelChoiceField(queryset=Plan.objects.all())
 
 
-class EditWorkoutForm(forms.ModelForm):
+class EditWorkoutForm(BaseWorkoutForm):
     ...

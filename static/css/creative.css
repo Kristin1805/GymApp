@@ -887,7 +887,7 @@ h2:after{
   background-position: center;
   background-image: url(../img/page_bg.jpg);
   background-repeat: no-repeat;
-  background-color: #fff;
+  background-color: #ffa15c;
   padding-top: 35px;
 }
 .page.coaches section{
@@ -1007,7 +1007,7 @@ h2:after{
   top: 18%;
 }
 .contact_page .btn{
-  background-color: #ffff00;
+  background-color: #ff974b;
   color: #000;
   line-height: 8px;
 }
@@ -1144,4 +1144,8 @@ h2:after{
   .table>tbody>tr>td{
     display: block;
   }
+}
+
+.padding-top-50 {
+    padding-top: 50px; /* You can adjust this value as needed */
 }

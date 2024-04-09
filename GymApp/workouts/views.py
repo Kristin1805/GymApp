@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required, permission_required
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 
-from GymApp.profiles.models import Profile
+from GymApp.profiles.models import Profile, PlanWorkout
 from GymApp.workouts.forms import AddPlanForm, EditPlanForm
 from GymApp.workouts.models import Plan
+from GymApp.workouts_in_plan.models import Workout
 
 
 # Create your views here.
@@ -14,7 +15,12 @@ def add_plan(request):
     if request.method == 'POST':
         form = AddPlanForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            plan = form.save()  # Save the plan object
+
+            # Create a PlanWorkout entry for the newly added plan
+            plan_workout = PlanWorkout(plan=plan)
+            plan_workout.save()
+
             return redirect('all_plans')
     else:
         form = AddPlanForm()
@@ -33,24 +39,27 @@ def delete_plan(request, plan_id):
     return render(request, 'workouts/delete_plan.html', {'plan': plan})
 
 
-def all_plans(request):
-    plans = Plan.objects.all()
-    return render(request, 'workouts/all_plan.html', {'plans': plans})
-
-def paid_plans_list(request):
-    profile = get_object_or_404(Profile, user=request.user)
-    paid_plans = profile.paid_plans.all()
-    # Serialize paid plans data
-    data = [{'id': plan.id, 'subscription_type': plan.subscription_type} for plan in paid_plans]
-    return JsonResponse(data, safe=False)
-
-
 def plan_workouts_view(request, plan_id):
-    # Retrieve the plan object based on plan_id
-    plan = Plan.objects.get(pk=plan_id)
-    # Pass the plan object to the template context
+    try:
+        # Retrieve the plan object based on plan_id
+        plan = Plan.objects.get(pk=plan_id)
+        # Retrieve all related plan-workout instances for the plan
+        plan_workouts = PlanWorkout.objects.filter(plan=plan)
+        # Extract the workouts from plan_workouts
+        workouts = [plan_workout.workout for plan_workout in plan_workouts]
+    except Plan.DoesNotExist:
+        # Handle the case where the plan does not exist
+        # You can raise Http404 or render an appropriate response
+        raise Http404("Plan does not exist")
+
     context = {
-        'plan': plan
+        'plan': plan,
+        'workouts': workouts
     }
-    # Render the HTML template with the plan's workouts
-    return render(request, 'workouts/plan_details.html', context)
+
+    return render(request, 'workouts/all_workouts_in_plan.html', context)
+
+def view_all_plans(request):
+    plans = Plan.objects.all()  # Query all plans from the database
+    context = {'plans': plans}
+    return render(request, 'workouts/all_plan.html', context)

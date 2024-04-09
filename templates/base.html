@@ -51,12 +51,10 @@
         <nav id="navbar" class="navbar order-last order-lg-0">
             <ul>
                 
-                    {% if logged %}
+                    {% if user.is_authenticated  %}
                         <li><a class="nav-link scrollto active" href="{% url 'home' %}">Home</a></li>
-                        <li><a class="nav-link scrollto" href="#about">About</a></li>
                         <li><a class="nav-link scrollto" href="{% url 'all_plans' %}">Services</a></li>
-                        <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
-                        {% if user.is_trainer %}
+                       {% if user.profile.is_trainer %}
                             <li><a class="nav-link scrollto" href="{% url 'trainer_profile_details' pk=user.pk %}">Trainer
                                 Profile</a></li>
                         {% else %}
@@ -68,7 +66,6 @@
                         {% endif %}
                     {% else %}
                         <li><a class="nav-link scrollto active" href="{% url 'home' %}">Home</a></li>
-                        <li><a class="nav-link scrollto" href="#about">About</a></li>
                         <li><a class="nav-link scrollto" href="{% url 'all_plans' %}">Services</a></li>
                         <li><a class="nav-link scrollto" href="{% url 'signin' %}">Login</a></li>
                     {% endif %}

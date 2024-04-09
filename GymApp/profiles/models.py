@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 from GymApp.workouts.models import Plan
+from GymApp.workouts_in_plan.models import Workout
 
 # Create your models here.
 USER_MODEL = get_user_model()
@@ -16,3 +17,6 @@ class Profile(models.Model):
     paid_plans = models.ManyToManyField(Plan, blank=True, null=True, related_name='profile_plans')
     card_num = models.IntegerField(blank=True, null=True)
 
+class PlanWorkout(models.Model):
+    plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
+    workout = models.ForeignKey(Workout, on_delete=models.CASCADE, blank=True, null=True)

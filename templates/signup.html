@@ -1,46 +1,42 @@
 <!DOCTYPE html>
+{% extends 'base.html' %}
 {% load static %}
 <html lang="en">
-<head>
 
-    <!-- Favicons -->
-    <link href="{% static 'img/favicon.png' %}" rel="icon">
-    <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+{% block title %}
+    Register
+{% endblock %}
 
+{% block body %}
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex align-items-center justify-content-center">
+        <div class="container" data-aos="fade-up">
+            <div class="row justify-content-between" data-aos="fade-up" data-aos-delay="150">
+                <div class="col-xl-6 col-lg-8">
+                    <div class="form-box" data-aos="fade-up" data-aos-delay="150">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-          rel="stylesheet">
-
-
-    <!-- Vendor CSS Files -->
-    <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-    <link href="{% static 'vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
-    <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
-    <link href="{% static 'vendor/remixicon/remixicon.css' %}" rel="stylesheet">
-    <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
-
-
-    <!-- Template Main CSS File -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration Form</title>
+                        <h2>Register</h2>
+                        <form action="{% url 'signup' %}" method="post">
+                            {{ form }}
+                            {% csrf_token %}
+                            <button type="submit">Sign up</button>
+                        </form>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    </div>
+                </div>
+                
+                    <div class="col-xl-6 col-lg-8">
+                        <div class="question-box">
+                            <p>Already have a profile?</p>
+                            <a href="{% url 'signin' %}">Sign in here</a>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-image: url('{% static "img/background.jpg" %}');
-            background-size: cover;
-            background-position: center;
-        }
 
         header {
             width: 100%;
@@ -122,7 +118,7 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            margin-top: 20px;
+            float: right;
             text-align: center;
         }
 
@@ -130,67 +126,18 @@
             text-decoration: none;
             color: #fff;
             background-color: #ff8d3a;
-            padding: 10px 20px;
             border-radius: 4px;
             display: inline-block;
-            margin-top: 10px;
         }
 
         .question-box p {
-            color: #fff; /* Set the text color to white */
-            margin-bottom: 10px; /* Add some space below the question */
+            color: #fff;
+            margin-bottom: 10px;
         }
 
         .question-box a:hover {
             background-color: #ff9e3e;
         }
     </style>
-</head>
-<body>
+{% endblock %}
 
-
-<header id="header">
-    <div class="container">
-        <h1 class="logo me-auto me-lg-0"><a href="{% url 'home' %}">GYM<span>.</span></a></h1>
-        <nav id="navbar" class="navbar order-last order-lg-0">
-            <ul>
-                {% if logged %}
-                    <li><a class="nav-link scrollto active" href="{% url 'home' %}">Home</a></li>
-                    <li><a class="nav-link scrollto" href="#about">About</a></li>
-                    <li><a class="nav-link scrollto" href="#services">Services</a></li>
-                    <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
-                    <li><a class="nav-link scrollto" href="{% url 'profile_details' %}">Profile</a></li>
-                    <form action="{% url 'logout' %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit">Logout</button>
-                    </form>
-                {% else %}
-                    <li><a class="nav-link scrollto active" href="{% url 'home' %}">Home</a></li>
-                    <li><a class="nav-link scrollto" href="#about">About</a></li>
-                    <li><a class="nav-link scrollto" href="#services">Services</a></li>
-                    <li><a class="nav-link scrollto" href="{% url 'signin' %}">Login</a></li>
-                    <li><a class="nav-link scrollto" href="{% url 'signup' %}">Register</a></li>
-                {% endif %}
-
-
-            </ul>
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
-        <a href="{% url 'signup' %}" class="get-started-btn scrollto">Get Started</a>
-    </div>
-</header><!-- End Header -->
-
-<form action="{% url 'signup' %}" method="post">
-    <h2>Register</h2>
-    {{ form }}
-    {% csrf_token %}
-    <button type="submit">Sign up</button>
-</form>
-
-<div class="question-box">
-    <p>Already have a profile?</p>
-    <a href="{% url 'signin' %}">Sign in here</a>
-</div>
-
-</body>
-</html>

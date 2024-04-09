@@ -7,7 +7,7 @@ from GymApp.trainers.views import TrainerDetailsView
 
 urlpatterns = [
 
-    path("<int:pk>/profile/", include([path("", TrainerDetailsView.as_view(), name="trainer_profile_details"),]),),
+    path("<int:pk>/trainer_details/", include([path("", TrainerDetailsView.as_view(), name="trainer_profile_details"),]),),
 
 ]
 

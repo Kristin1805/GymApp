@@ -8,37 +8,17 @@ class TrainerAdmin(admin.ModelAdmin):
     list_display = ['user', 'salary']  # Customize displayed fields
     search_fields = ['user__username']  # Add search functionality
 
-    def get_queryset(self, request):
-        queryset = super().get_queryset(request)
-        return queryset
-
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
 
-        # Get the content type for Trainer model
-        content_type = ContentType.objects.get_for_model(Trainer)
-
-        # Add permission to add, change and delete workout programs only if they don't exist
-        if not Permission.objects.filter(codename='can_add_workout', content_type=content_type).exists():
-            Permission.objects.create(
-                codename='can_add_workout',
-                name='Can Add Workout Program',
-                content_type=content_type,
-            )
-
-        if not Permission.objects.filter(codename='can_change_workout', content_type=content_type).exists():
-            Permission.objects.create(
-                codename='can_change_workout',
-                name='Can Change Workout Program',
-                content_type=content_type,
-            )
-
-        if not Permission.objects.filter(codename='can_delete_workout', content_type=content_type).exists():
-            Permission.objects.create(
-                codename='can_delete_workout',
-                name='Can Delete Workout Program',
-                content_type=content_type,
-            )
+        # Check if user is now a trainer and grant permissions accordingly
+        if 'is_trainer' in form.changed_data and obj.is_trainer:
+            trainer_group, _ = Group.objects.get_or_create(name='Trainers')
+            content_type = ContentType.objects.get_for_model(Trainer)
+            permissions = Permission.objects.filter(content_type=content_type)
+            for permission in permissions:
+                obj.user.user_permissions.add(permission)
+            obj.user.groups.add(trainer_group)
 
     def has_change_permission(self, request, obj=None):
         if obj is not None and obj.user.is_superuser:
@@ -54,3 +34,4 @@ class TrainerAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return True
         return super().has_add_permission(request)
+

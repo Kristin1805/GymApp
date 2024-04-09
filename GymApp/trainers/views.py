@@ -6,7 +6,8 @@ from django.urls import reverse_lazy
 from django.views.generic import DeleteView, DetailView
 
 from GymApp.profiles.forms import CreateUser
-from GymApp.profiles.models import USER_MODEL
+from GymApp.profiles.models import USER_MODEL, PlanWorkout
+from GymApp.workouts.models import Plan
 
 
 def singup(request):
@@ -34,11 +35,30 @@ class TrainerDetailsView(DetailView, LoginRequiredMixin):
     def get_object(self, queryset=None):
         return self.request.user
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Get all plans
+        plans = Plan.objects.all()
+        context['plans'] = plans
+        return context
+
 class TrainerDeleteView(DeleteView, LoginRequiredMixin):
     model = USER_MODEL
     template_name = "trainers/deletetrainer.html"
     success_url = reverse_lazy("home")
 
+def workouts_to_edit(request, plan_id):
+    # Retrieve the plan workouts for the given plan_id
+    plan_workouts = PlanWorkout.objects.filter(plan_id=plan_id)
+
+    # Extract the associated workouts from the plan workouts
+    workouts = [plan_workout.workout for plan_workout in plan_workouts]
+
+    context = {
+        'workouts': workouts
+    }
+
+    return render(request, 'trainers/workouts_to_edit.html', context)
 
 
 

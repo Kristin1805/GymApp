@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 
 from django import forms
 
@@ -19,6 +19,7 @@ class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['gender', 'address']
+
 
 
 # Include user fields you want to edit
@@ -59,6 +60,7 @@ class CustomUserEditForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = USER_MODEL
         fields = ("username", "first_name", "last_name")
+        exclude = ['password']
 
 class BaseUserForm(forms.ModelForm):
     class Meta:
@@ -66,6 +68,7 @@ class BaseUserForm(forms.ModelForm):
         exclude = ("user",)
 
 
-
+class ChangePasswordForm(PasswordChangeForm):
+    pass
 class ProfileDetailsForm(BaseUserForm):
     pass

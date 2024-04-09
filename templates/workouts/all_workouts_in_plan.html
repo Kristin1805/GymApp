@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+
 {% load static %}
+
 <html lang="en">
 
 <head>
@@ -19,53 +21,53 @@
     <link href="{% static 'vendor2/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
 
     <!-- Theme CSS -->
-    <link href="{%  static 'css/creative.css' %}" rel="stylesheet">
-    <link href="{%  static 'css/fonts.css' %}" rel="stylesheet">
+    <link href="{% static 'css/creative.css' %}" rel="stylesheet">
+    <link href="{% static 'css/fonts.css' %}" rel="stylesheet">
     <link href="{% static 'vendor2/fancybox/jquery.fancybox.css' %}" rel="stylesheet">
     <!-- Optionally add helpers - button, thumbnail and/or media -->
-    <link rel="stylesheet" href="{% static 'vendor2/fancybox/helpers/jquery.fancybox-buttons.css?v=1.0.5' %}" type="text/css" media="screen" />
-    <link rel="stylesheet" href="{% static 'vendor2/fancybox/helpers/jquery.fancybox-thumbs.css?v=1.0.7' %}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{% static 'vendor2/fancybox/helpers/jquery.fancybox-buttons.css?v=1.0.5' %}"
+          type="text/css" media="screen"/>
+    <link rel="stylesheet" href="{% static 'vendor2/fancybox/helpers/jquery.fancybox-thumbs.css?v=1.0.7' %}"
+          type="text/css" media="screen"/>
     <link rel="stylesheet" href="{% static 'vendor2/owl-carousel/owl.carousel.css' %}">
     <link rel="stylesheet" href="{% static 'vendor2/owl-carousel/owl.theme.css' %}">
-    
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
     <!-- MEDIA SECTION -->
-    <section class="media">
-        <div class="text-center">
-            <h2>MEDIA</h2>
-        </div>
-        <div class="container">
-            <div class="row">
-                {% for workout in plan.workouts.all %}
+  <section class="media">
+    <div class="text-center">
+        <h2>Workouts</h2>
+    </div>
+    <div class="container">
+        <div class="row">
+            {% for workout in workouts %}
                 <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="block">
                         <!-- Display workout image if available -->
-                        {% if workout.image %}
-                        <img src="{{ workout.image.url }}" class="img-responsive" alt="">
+                        {% if workout.image.url %}
+                            <img src="{{ workout.image.url }}" class="img-responsive" alt="">
                         {% endif %}
                         <!-- Display video if available -->
-                        {% if workout.video_url %}
-                        <a class="various fancybox.iframe icon" href="{{ workout.video_url }}"></a>
-                        {% endif %}
                         <div class="info">
                             <h3>{{ workout.name }}</h3>
                             <span>Duration: {{ workout.duration }} minutes</span>
-                            <p>{{ workout.instructions }}</p>
+                            <span>Instructions: {{ workout.instructions }} </span>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
-                </div>
-            </div>
-            <div class="text-center">
-                <a href="#" class="btn btn-primary btn-xl page-scroll">view all media</a>
-            </div>
+            {% endfor %}
         </div>
-    </section>
+    </div>
+    <div class="text-center">
+        <a href="{% url 'profile_details' %}" class="btn btn-primary btn-xl page-scroll">Send me back to my profile</a>
+    </div>
+</section>
+
     <!-- MEDIA SECTION -->
+
