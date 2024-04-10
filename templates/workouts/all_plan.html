@@ -4,107 +4,114 @@
 <html lang="en">
 
 {% block content %}
-<head>
- 
-    <div class="container" data-aos="fade-up">
+    <head>
 
-      <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
-        <div class="col-xl-6 col-lg-8">
-       
-        
-        </div>
-      </div>
-    
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-   
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+        <div class="container" data-aos="fade-up">
+
+            <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+                <div class="col-xl-6 col-lg-8">
 
 
-    <link href="{% static 'css/plans.css' %}" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <style>
-        /* Adjust header styles */
-        #header {
-            background-color: rgba(0, 0, 0, 0.66); /* Set background color to black */
-            padding: 20px 0; /* Adjust top and bottom padding */
-        }
+                </div>
+            </div>
 
-        /* Adjust margin between plans */
-        .pricing-column-wrapper {
-            margin-bottom: 30px; /* Set margin between plans */
-        }
-    </style>
-</head>
-<body>
+            <meta charset="utf-8">
+            <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+            <meta content="" name="description">
+            <meta content="" name="keywords">
 
 
+            <link href="{% static 'css/plans.css' %}" rel="stylesheet">
+            <!-- Font Awesome -->
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+            <style>
+                /* Adjust header styles */
+                #header {
+                    background-color: rgba(0, 0, 0, 0.66); /* Set background color to black */
+                    padding: 20px 0; /* Adjust top and bottom padding */
+                }
 
-<div class="container" style="margin-top: 60px;"> <!-- Adjust the margin-top value as needed -->
-    <div class="row justify-content-center">
-        {% if plans %}
-            {% for plan in plans %}
-                <div class="col-sm-6 col-md-6 pricing-column-wrapper">
-                    <!-- Use Bootstrap's grid system to create 2 columns -->
-                    <div class="margin-body">
-                        <div>
-                            <div class="starsec"></div>
-                            <div class="starthird"></div>
-                            <div class="starfourth"></div>
-                            <div class="starfifth"></div>
-                        </div>
-                        <!--Dust particle end--->
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12">
-                                <div class="wpb_text_column wpb_content_element ">
-                                    <div class="wpb_wrapper">
-                                        <div class="title-h1 text-center"><span><span class="light"></span></span></div>
-                                    </div>
-                                </div>
+                /* Adjust margin between plans */
+                .pricing-column-wrapper {
+                    margin-bottom: 30px; /* Set margin between plans */
+                }
+            </style>
+    </head>
+    <body>
+
+
+
+    <div class="container" style="margin-top: 60px;"> <!-- Adjust the margin-top value as needed -->
+        <div class="row justify-content-center">
+            {% if plans %}
+                {% for plan in plans %}
+                    <div class="col-sm-6 col-md-6 pricing-column-wrapper">
+                        <!-- Use Bootstrap's grid system to create 2 columns -->
+                        <div class="margin-body">
+                            <div>
+                                <div class="starsec"></div>
+                                <div class="starthird"></div>
+                                <div class="starfourth"></div>
+                                <div class="starfifth"></div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="pricing-column">
-                                    <div class="pricing-price-row">
-                                        <div class="pricing-price-wrapper">
-                                            <div class="pricing-price">
-                                                <div class="pricing-cost">${{ plan.amount }}</div>
-                                                <div class="time">{{ plan.duration }}</div>
-                                                <!-- Add gym icon here -->
-                                                <div class="time-icon">
-                                                    <i class="fas fa-dumbbell fa-3x"></i>
-                                                </div>
+                            <!--Dust particle end--->
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="wpb_text_column wpb_content_element ">
+                                        <div class="wpb_wrapper">
+                                            <div class="title-h1 text-center"><span><span class="light"></span></span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="pricing-row-title">
-                                        <div class="pricing_row_title">{{ plan.subscription_type }}</div>
-                                    </div>
-                                    <figure class="pricing-row">{{ plan.gym_workouts }}</figure>
-                                    <figure class="pricing-row">{{ plan.cross_fit_details }}</figure>
-                                    <figure class="pricing-row strike">{{ plan.personal_training_hours }}</figure>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="pricing-column">
+                                        <div class="pricing-price-row">
+                                            <div class="pricing-price-wrapper">
+                                                <div class="pricing-price">
+                                                    <div class="pricing-cost">${{ plan.amount }}</div>
+                                                    <div class="time">{{ plan.duration }}</div>
+                                                    <!-- Add gym icon here -->
+                                                    <div class="time-icon">
+                                                        <i class="fas fa-dumbbell fa-3x"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pricing-row-title">
+                                            <div class="pricing_row_title">{{ plan.subscription_type }}</div>
+                                        </div>
+                                        <figure class="pricing-row">{{ plan.gym_workouts }}</figure>
+                                        <figure class="pricing-row">{{ plan.cross_fit_details }}</figure>
+                                        <figure class="pricing-row strike">{{ plan.personal_training_hours }}</figure>
 
-                                    <div class="pricing-footer">
-                                        <div class="gem-button-container gem-button-position-center"><a href="{% url 'fake_payment' plan_id=plan.id %}"
-                                                                                                        class="gem-button gem-green">order
-                                            now</a></div>
+                                        <div class="pricing-footer">
+                               
+                                            <div class="gem-button-container gem-button-position-center">
+                                                {% if not user.profile.is_trainer %}
+                                                <a href="{% url 'fake_payment' plan_id=plan.id %}"
+                                                    class="gem-button gem-green">order now</a></div>
+                                             {% else %}
+                                                <a href="{% url 'edit_plan' plan_id=plan.id %}"
+                                                    class="gem-button gem-green">Edit</a></div>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-sm-12 fa-envelope-open-text">
+                    <p style="color: white; font-size: 24px;">There are still no plans available.</p>
                 </div>
-            {% endfor %}
-       {% else %}
-            <div class="col-sm-12 fa-envelope-open-text">
-                <p style="color: white; font-size: 24px;">There are still no plans available.</p>
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
-</div>
 {% endblock %}
 <!-- Include your footer content here -->
 

@@ -11,6 +11,6 @@ class BasePlanForm(forms.ModelForm):
 class AddPlanForm(BasePlanForm):
     ...
 
-class EditPlanForm(forms.ModelForm):
+class EditPlanForm(BasePlanForm):
     ...
 

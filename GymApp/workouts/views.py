@@ -26,7 +26,22 @@ def add_plan(request):
         form = AddPlanForm()
 
     return render(request, 'workouts/add_plan.html', {'form': form})
+@login_required
+@permission_required('trainers.can_edit_plan', raise_exception=True)
+def edit_plan(request, plan_id):
+    # Fetch the plan object based on plan_id
+    plan = get_object_or_404(Plan, id=plan_id)
 
+    if request.method == 'POST':
+        form = EditPlanForm(request.POST, request.FILES, instance=plan)
+        if form.is_valid():
+            form.save()  # Save the updated plan object
+
+            return redirect('all_plans')
+    else:
+        form = EditPlanForm(instance=plan)
+
+    return render(request, 'workouts/edit_plan.html', {'form': form, 'plan': plan})
 
 @login_required
 @permission_required('trainers.can_delete_plan', raise_exception=True)
