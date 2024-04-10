@@ -15,9 +15,7 @@ def add_plan(request):
     if request.method == 'POST':
         form = AddPlanForm(request.POST, request.FILES)
         if form.is_valid():
-            plan = form.save()  # Save the plan object
-
-            # Create a PlanWorkout entry for the newly added plan
+            plan = form.save()
             plan_workout = PlanWorkout(plan=plan)
             plan_workout.save()
 
@@ -29,13 +27,13 @@ def add_plan(request):
 @login_required
 @permission_required('trainers.can_edit_plan', raise_exception=True)
 def edit_plan(request, plan_id):
-    # Fetch the plan object based on plan_id
+
     plan = get_object_or_404(Plan, id=plan_id)
 
     if request.method == 'POST':
         form = EditPlanForm(request.POST, request.FILES, instance=plan)
         if form.is_valid():
-            form.save()  # Save the updated plan object
+            form.save()
 
             return redirect('all_plans')
     else:
@@ -56,15 +54,14 @@ def delete_plan(request, plan_id):
 
 def plan_workouts_view(request, plan_id):
     try:
-        # Retrieve the plan object based on plan_id
+
         plan = Plan.objects.get(pk=plan_id)
-        # Retrieve all related plan-workout instances for the plan
+
         plan_workouts = PlanWorkout.objects.filter(plan=plan)
-        # Extract the workouts from plan_workouts
+
         workouts = [plan_workout.workout for plan_workout in plan_workouts]
     except Plan.DoesNotExist:
-        # Handle the case where the plan does not exist
-        # You can raise Http404 or render an appropriate response
+
         raise Http404("Plan does not exist")
 
     context = {

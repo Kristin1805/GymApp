@@ -9,7 +9,6 @@ from GymApp.workouts.models import Plan
 @login_required
 def fake_payment_view(request, plan_id):
     plan = Plan.objects.get(pk=plan_id)
-    # Render the fake payment template with the plan details
     return render(request, 'enrollment/fake_payment.html', {'plan': plan})
 
 @login_required
@@ -38,6 +37,4 @@ def checkout(request, plan_id):
             error_message = 'Form is not valid.'
 
     form = PaymentForm()
-    # If there's an error message, render the form with the error message
-    # Otherwise, render the form without any errors
     return render(request, 'enrollment/fake_payment.html', {'user_profile': user_profile, 'error_message': error_message})

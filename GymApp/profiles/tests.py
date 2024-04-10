@@ -18,7 +18,7 @@ class ProfileModelTestCase(TestCase):
             email='test@example.com',
             password='testpassword'
         )
-        # Check if a profile already exists for the user and delete it
+
         if hasattr(self.user, 'profile'):
             self.user.profile.delete()
 
@@ -40,7 +40,6 @@ class UserRegistrationViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'signup.html')
 
-    # Add more tests for form submission and validation if needed
 
 class UserLoginViewTestCase(TestCase):
     def setUp(self):
@@ -55,10 +54,6 @@ class UserLoginViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'signin.html')
 
-    # Add more tests for login functionality
-
-
-# Add more tests as necessary for each model and view
 
 class UpdateProfileViewTestCase(TestCase):
     def setUp(self):
@@ -68,7 +63,7 @@ class UpdateProfileViewTestCase(TestCase):
             email='test@example.com',
             password='testpassword'
         )
-        # Check if a profile already exists for the user before creating a new one
+
         if not hasattr(self.user, 'profile'):
             self.profile = Profile.objects.create(
                 user=self.user,

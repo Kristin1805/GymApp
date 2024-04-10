@@ -18,8 +18,6 @@ class AddWorkoutForm(forms.ModelForm):
         fields = ['name', 'duration', 'image', 'instructions']
 
 
-    # workout = forms.ModelChoiceField(queryset=Workout.objects.all())
-    # plan = forms.ModelChoiceField(queryset=Plan.objects.all())
 
 
 class EditWorkoutForm(BaseWorkoutForm):

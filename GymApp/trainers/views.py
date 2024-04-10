@@ -15,7 +15,7 @@ def singup(request):
         form = CreateUser(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')  # Redirect to the home page after successful signup
+            return redirect('home')
     else:
         form = CreateUser()
     return render(request, 'signup.html', {'form': form})
@@ -48,10 +48,10 @@ class TrainerDeleteView(DeleteView, LoginRequiredMixin):
     success_url = reverse_lazy("home")
 
 def workouts_to_edit(request, plan_id):
-    # Retrieve the plan workouts for the given plan_id
+
     plan_workouts = PlanWorkout.objects.filter(plan_id=plan_id)
 
-    # Extract the associated workouts from the plan workouts
+
     workouts = [plan_workout.workout for plan_workout in plan_workouts]
 
     context = {

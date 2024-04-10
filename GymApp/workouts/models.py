@@ -21,7 +21,6 @@ class Plan(models.Model):
     duration = models.CharField(max_length=10)
     photo = models.FileField(upload_to='photos/', blank=True)
 
-    # Additional fields based on subscription type
     gym_workouts = models.CharField(max_length=100, blank=True, null=True)
     cross_fit_details = models.TextField(blank=True, null=True)
     personal_training_details = models.CharField(max_length=100,blank=True, null=True)

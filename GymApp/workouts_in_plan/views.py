@@ -19,7 +19,7 @@ def add_workout(request):
 
         if form.is_valid():
             plan_id = form.cleaned_data['plan'].id
-            workout_name = form.cleaned_data['name']  # Assuming the field name is 'name'
+            workout_name = form.cleaned_data['name']
             duration = form.cleaned_data['duration']
             image = form.cleaned_data['image']
             instructions = form.cleaned_data['instructions']
@@ -30,10 +30,9 @@ def add_workout(request):
                 messages.error(request, 'Plan with ID {} does not exist'.format(plan_id))
                 return redirect('home')
 
-            # Create a new workout object
             workout = Workout.objects.create(name=workout_name, duration=duration, image=image, instructions=instructions)
 
-            # Create a PlanWorkout instance
+
             plan_workout = PlanWorkout(plan=plan, workout=workout)
             plan_workout.save()
 
@@ -90,10 +89,9 @@ def delete_workout(request, workout_id):
     return render(request, 'workouts/confirm_delete_workout.html', {'workout': workout})
 @login_required
 def workouts_to_edit(request, plan_id):
-    # Retrieve the plan workouts for the given plan_id
+
     plan_workouts = PlanWorkout.objects.filter(plan_id=plan_id)
 
-    # Extract the associated workouts from the plan workouts
     workouts = [plan_workout.workout for plan_workout in plan_workouts]
 
     context = {

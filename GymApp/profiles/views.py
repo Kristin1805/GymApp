@@ -15,10 +15,6 @@ from GymApp.profiles.models import USER_MODEL, Profile
 
 
 def is_not_trainer(function=None, redirect_url='/all_plans/'):
-    """
-    Decorator for views that checks if the user is not a trainer.
-    If the user is a trainer, they will be redirected to the specified URL.
-    """
     actual_decorator = user_passes_test(
         lambda u: not u.profile.is_trainer,
         login_url=redirect_url
@@ -76,7 +72,7 @@ def update_profile(request):
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
-            return redirect('profile_details')  # Redirect to success page
+            return redirect('profile_details')
     else:
         user_form = UserProfileForm(instance=request.user)
         profile = Profile.objects.get(user=request.user)
@@ -102,7 +98,6 @@ class UserDeleteView(DeleteView, LoginRequiredMixin):
 
 @login_required
 def change_password(request, user_id):
-    # Retrieve the profile associated with the provided profile_id
     profile = get_object_or_404(Profile, user_id=user_id)
 
 
@@ -114,7 +109,7 @@ def change_password(request, user_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Your password was successfully updated!')
-            return redirect('home')  # Redirect to the home page or any other desired page
+            return redirect('home')
     else:
         form = ChangePasswordForm(user=request.user)
     return render(request, 'profiles/change_password.html', {'form': form, 'user_id': user_id})
